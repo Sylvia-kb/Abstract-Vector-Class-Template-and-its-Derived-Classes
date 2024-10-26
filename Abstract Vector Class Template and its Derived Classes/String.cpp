@@ -2,26 +2,39 @@
 #include "String.h"
 #include <cstring>
 
+String ::~String(){}
+String& String::operator+(const basic_vec<char> &vv){
+	static String temp;
+	temp.resize(this->Size()+vv.Size());
+	for(int i=0;i<this->Size();i++){
+		cout<<"chishi\n";
+		temp[i]=this->operator[](i);//chou lou de xie fa
+	}
+	for(int i=this->Size();i<this->Size()+vv.Size();i++){
+		temp[i]=vv[i];	
+	}
+	return temp;
+}
 String::String(const char* str) : basic_vec<char>(strlen(str),str)
 {
 
 }
 
 
-void String::Input(istream& in)	// ¾ßÓÐ×Ô¶¯À©Õ¹ÈÝÆ÷ÈÝÁ¿µÄ¹¦ÄÜ
+void String::Input(istream& in)	// ï¿½ï¿½ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½Õ¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¹ï¿½ï¿½ï¿½
 {
-	const int N = 1;//1024;		// NÈ¡×îÐ¡Öµ1ÊÇÎªÁËµ÷ÊÔ£¬Êµ¼ÊÊ¹ÓÃÊ±È¡1024
-	char buffer[N], ch;			// ÊäÈë»º³åÇø
+	const int N = 1;//1024;		// NÈ¡ï¿½ï¿½Ð¡Öµ1ï¿½ï¿½Îªï¿½Ëµï¿½ï¿½Ô£ï¿½Êµï¿½ï¿½Ê¹ï¿½ï¿½Ê±È¡1024
+	char buffer[N], ch;			// ï¿½ï¿½ï¿½ë»ºï¿½ï¿½ï¿½ï¿½
 	int i, j, k, flag;
 	String temp;
 
-	while (true)					// ¹ýÂËµôÓÐÐ§×Ö·ûÇ°µÄ¿Õ°××Ö·û
+	while (true)					// ï¿½ï¿½ï¿½Ëµï¿½ï¿½ï¿½Ð§ï¿½Ö·ï¿½Ç°ï¿½Ä¿Õ°ï¿½ï¿½Ö·ï¿½
 	{
-		ch = in.peek();			// Íµ¿´ÏÂÒ»¸ö×Ö·û£¬¿´ÊÇ·ñÎª¿Õ°××Ö·û
+		ch = in.peek();			// Íµï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½Îªï¿½Õ°ï¿½ï¿½Ö·ï¿½
 		if (ch == ' ' || ch == '\t' || ch == '\n' || ch == '\r')
-			in.get(ch);			// ÈôÊÇ¿Õ°××Ö·û£¬Ôò¹ýÂËµô£¨¼´¶ÁÈ¡ºó²»ÓÃ£©
+			in.get(ch);			// ï¿½ï¿½ï¿½Ç¿Õ°ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½Ã£ï¿½
 		else
-			break;				// Ö±µ½Óöµ½·Ç¿Õ°××Ö·û£¬½áÊø±¾whileÑ­»·
+			break;				// Ö±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¿Õ°ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½whileÑ­ï¿½ï¿½
 	}
 	for (k = 0, flag = 1; flag == 1; k++)
 	{
@@ -36,11 +49,11 @@ void String::Input(istream& in)	// ¾ßÓÐ×Ô¶¯À©Õ¹ÈÝÆ÷ÈÝÁ¿µÄ¹¦ÄÜ
 			else
 				in.get(buffer[i]);
 		}
-		temp.resize(k * N + i);			// ÀûÓÃÁËresizeº¯ÊýµÄ"¾¡Á¿±£ÁôÁËÔ­ÓÐÊý¾Ý"µÄ¹¦ÄÜ
+		temp.resize(k * N + i);			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½resizeï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"ï¿½Ä¹ï¿½ï¿½ï¿½
 		for (j = 0; j < i; j++)
-			temp[k * N + j] = buffer[j];// ÀûÓÃÁË·½À¨ºÅÔËËã·û
+			temp[k * N + j] = buffer[j];// ï¿½ï¿½ï¿½ï¿½ï¿½Ë·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	}
-	*this = temp;					// ÀûÓÃÁË¸³ÖµÔËËã·û£¨Éî¸³ÖµÔËËã£©
+	*this = temp;					// ï¿½ï¿½ï¿½ï¿½ï¿½Ë¸ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½î¸³Öµï¿½ï¿½ï¿½ã£©
 }
 
 void String::Output(ostream& out) const
@@ -60,7 +73,7 @@ void String::Output(ostream& out) const
 
 
 
-String& String::insert(int p0, const char* s)// ½« s ËùÖ¸ÏòµÄ×Ö·û´®²åÈëÔÚ±¾´®Î»ÖÃ p0£¨ÏÂ±êÎªp0£©Ö®Ç°
+String& String::insert(int p0, const char* s)// ï¿½ï¿½ s ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú±ï¿½ï¿½ï¿½Î»ï¿½ï¿½ p0ï¿½ï¿½ï¿½Â±ï¿½Îªp0ï¿½ï¿½Ö®Ç°
 {
 	int n = size;
 	int new_size = size + strlen(s);
@@ -81,8 +94,8 @@ String& String::insert(int p0, const char* s)// ½« s ËùÖ¸ÏòµÄ×Ö·û´®²åÈëÔÚ±¾´®Î»Ö
 	}
 	p[new_size] = '\0';
 
-	delete[] ptr;				// ÊÍ·ÅÔ­×Ö·û´®
-	ptr = p;					// ±£´æÐÂ×Ö·û´®µÄÊ×µØÖ·
+	delete[] ptr;				// ï¿½Í·ï¿½Ô­ï¿½Ö·ï¿½ï¿½ï¿½
+	ptr = p;					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×µï¿½Ö·
 	return *this;
 }
 
@@ -151,6 +164,25 @@ String& String::append(const char* s) {
 	return *this;
 }
 
+
+// String String :: operator+(const String& Str) {
+// 	String temp;
+// 	int new_size = size + Str.size;
+// 	temp.ptr = new char[ new_size+ 1];
+// 	temp.size = size + Str.size;
+// 	for(int i=0;i < size;i++)
+// 	{
+// 		temp.ptr[i] = ptr[i];
+// 	}
+// 	for (int i = size; i < new_size; i++)
+// 	{
+// 		temp.ptr[i] = Str.ptr[i - size];
+// 	}
+// 	temp.ptr[new_size] = '\0';
+
+// 	return temp;
+// }
+
 String& operator+(const basic_vec<char>& vv) {
 	String temp;
 	int new_size = this->size + vv.size;
@@ -168,6 +200,7 @@ String& operator+(const basic_vec<char>& vv) {
 
 	return temp;
 }
+
 
 String& String::operator+=(const String& Str)
 {
@@ -207,16 +240,16 @@ bool operator<=(const String& Str1, const String& Str2)
 
 
 
-// ¸½¼ÓµÄ³ÉÔ±º¯Êý
-istream& getline(istream& in, String& Str, int num, char delim)
-{
-	if (num <= 0) return in;
+// ï¿½ï¿½ï¿½ÓµÄ³ï¿½Ô±ï¿½ï¿½ï¿½ï¿½
+// istream& getline(istream& in, String& Str, int num, char delim='\n')
+// {
+// 	if (num <= 0) return in;
 
-	if (Str.ptr != NULL) delete[] Str.ptr;
-	Str.ptr = new char[num + 1];
-	in.getline(Str.ptr, num, delim);
-	return in;
-}
+// 	if (Str.ptr != NULL) delete[] Str.ptr;
+// 	Str.ptr = new char[num + 1];
+// 	in.getline(Str.ptr, num, delim);
+// 	return in;
+// }
 
 String& String::trim()
 {
@@ -247,11 +280,11 @@ String& String::trim()
 
 void input(int& op) {
 	std::cin >> op;
-	while (std::cin.fail())                //·ÀÖ¹´íÎóÊäÈë¡£
+	while (std::cin.fail())                //ï¿½ï¿½Ö¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë¡£
 	{
 		std::cout << "Invalid input. Please enter a number." << endl;
-		std::cin.clear();            // ÇåÀí´íÎó×´Ì¬Î»
-		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // ¶ªÆúÎÞÐ§ÊäÈë
+		std::cin.clear();            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬Î»
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½ï¿½ï¿½
 		std::cin >> op;
 	}
 }
